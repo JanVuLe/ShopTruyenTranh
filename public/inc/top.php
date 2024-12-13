@@ -10,6 +10,7 @@
 
     <!-- Bootstrap icons-->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.5.0/font/bootstrap-icons.css" rel="stylesheet" />
+    <link rel="shortcut icon" type="image/x-icon" href="../images/logo/logoPPT.png">
     <style>
         .custom-navbar {
             text-transform: uppercase;
@@ -27,6 +28,11 @@
 
         h5 {
             color: #c37b15;
+        }
+        *{
+            border: 0;
+            padding: 0;
+            margin: 0;
         }
     </style>
 </head>

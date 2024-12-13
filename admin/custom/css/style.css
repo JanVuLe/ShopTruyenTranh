@@ -3486,6 +3486,7 @@ body {
 html,
 body {
   height: 100%;
+  scroll-behavior: smooth;
 }
 body.full-height-layout #wrapper,
 body.full-height-layout #page-wrapper {
