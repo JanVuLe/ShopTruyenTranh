@@ -105,6 +105,27 @@ class DONHANG
 			exit();
 		}
 	}
+
+	// Lấy đơn hàng theo id người dùng
+	public function laydonhangtheoidnguoidung($nguoidung_id)
+	{
+		$dbcon = DATABASE::connect();
+		try {
+			$sql = "SELECT dh.*, nd.hoten, dc.diachi 
+					FROM donhang dh, nguoidung nd, diachi dc 
+					WHERE dh.nguoidung_id = nd.id AND dh.diachi_id = dc.id AND nd.id = :mand";
+			$cmd = $dbcon->prepare($sql);
+			$cmd->bindValue(":mand", $nguoidung_id);
+			$cmd->execute();
+			$result = $cmd->fetchAll();
+			return $result;
+		} catch (PDOException $e) {
+			$error_message = $e->getMessage();
+			echo "<p>Lỗi truy vấn: $error_message</p>";
+			exit();
+		}
+	}
+
 	// Đổi trạng thái
 	public function doitrangthai($id, $trangthai)
 	{

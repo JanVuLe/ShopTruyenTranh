@@ -17,5 +17,5 @@
         </tr>
     <?php endforeach; ?>
 </table>
-
+<a class="btn btn-primary" href="index.php" role="button">Trở về</a>
 <?php include("../inc/bottom.php"); ?>

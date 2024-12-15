@@ -5,17 +5,22 @@ include("inc/top.php");
 	<div class="col-sm-4"></div>
 	<div class="col-sm-4">
 		<div class="p-3  shadow">
-		<h3 class="text-center text-info">ĐĂNG NHẬP</h3>
-		<form method="post" action="index.php">
-		
-		<input class="form-control" type="text" name="txtemail" placeholder="Tên" required><br>
-		<input class="form-control" type="password" name="txtmatkhau" placeholder="Mật khẩu" required><br>
+			<h3 class="text-center text-warning">ĐĂNG NHẬP</h3>
+			<?php if (!empty($tb)): ?>
+				<div class="alert alert-danger text-center" role="alert">
+					<?php echo htmlspecialchars($tb); ?>
+				</div>
+			<?php endif; ?>
+			<form method="post" action="index.php">
 
-		<input type="hidden" name="action" value="xldangnhap" >
-		<div class="d-grid">
-		<input class="btn btn-info btn-block" type="submit" value="Đăng nhập">
-		</div>
-		</form>
+				<input class="form-control" type="text" name="txtemail" placeholder="Tên" required><br>
+				<input class="form-control" type="password" name="txtmatkhau" placeholder="Mật khẩu" required><br>
+
+				<input type="hidden" name="action" value="xldangnhap">
+				<div class="d-grid">
+					<input class="btn btn-info btn-block" type="submit" value="Đăng nhập">
+				</div>
+			</form>
 		</div>
 	</div>
 	<div class="col-sm-4"></div>

@@ -1,0 +1,46 @@
+.custom-navbar {
+    text-transform: uppercase;
+    background-color: #f79c1b;
+    font-size: 13px;
+}
+
+.btn {
+    margin-right: 15px;
+}
+
+.danhmuc {
+    color: #f79c1b;
+}
+
+h5 {
+    color: #c37b15;
+}
+
+* {
+    border: 0;
+    padding: 0;
+    margin: 0;
+}
+
+html,
+body {
+    height: 100%;
+    margin: 0;
+    background-color: #86b1db;
+}
+
+body {
+    display: flex;
+    flex-direction: column;
+}
+
+footer {
+    margin-top: auto;
+    background-color: #533f1f;
+}
+.card-title{
+    font-size: 15px;
+}
+.table-transparent {
+    background-color: transparent;
+}

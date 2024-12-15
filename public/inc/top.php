@@ -9,32 +9,9 @@
     <title>Shop Truyện Tranh</title>
 
     <!-- Bootstrap icons-->
+    <link href="inc/css/customize.css" rel="stylesheet">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.5.0/font/bootstrap-icons.css" rel="stylesheet" />
     <link rel="shortcut icon" type="image/x-icon" href="../images/logo/logoPPT.png">
-    <style>
-        .custom-navbar {
-            text-transform: uppercase;
-            background-color: #f79c1b;
-            font-size: 13px;
-        }
-
-        .btn {
-            margin-right: 15px;
-        }
-
-        .danhmuc {
-            color: #f79c1b;
-        }
-
-        h5 {
-            color: #c37b15;
-        }
-        *{
-            border: 0;
-            padding: 0;
-            margin: 0;
-        }
-    </style>
 </head>
 
 <body id="top">
@@ -61,7 +38,7 @@
                 <div class="d-flex">
                     <?php if (isset($_SESSION["khachhang"])) { ?>
                         <ul class="navbar-nav me-auto mb-2 mb-lg-0 ms-lg-4">
-                            <li class="nav-item"><a class="nav-link text-warning" href="index.php?action=thongtin">Chào <?php echo $_SESSION["khachhang"]["hoten"]; ?></a></li>
+                            <li class="nav-item"><a class="nav-link text-dark" href="index.php?action=thongtin&mand=<?php echo $_SESSION["khachhang"]["id"]; ?>"><?php echo $_SESSION["khachhang"]["hoten"]; ?></a></li>
                             <li class="nav-item"><a class="nav-link" href="index.php?action=dangxuat">Đăng xuất</a></li>
                         </ul>
                     <?php } else { ?>
