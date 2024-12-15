@@ -15,6 +15,7 @@ if (isset($_REQUEST["action"])) {
 }
 
 $dm = new DANHMUC();
+$danhmuc = $dm->laydanhmuc();
 $mh = new MATHANG();
 
 switch ($action) {
@@ -27,12 +28,36 @@ switch ($action) {
         include("addform.php");
         break;
     case "xulythem":
-        // xử lý file upload
-        $hinhanh = "images/products/" . basename($_FILES["filehinhanh"]["name"]); // đường dẫn ảnh lưu trong db
-        $duongdan = "../../" . $hinhanh; // nơi lưu file upload (đường dẫn tính theo vị trí hiện hành)
-        move_uploaded_file($_FILES["filehinhanh"]["tmp_name"], $duongdan);
-        // xử lý thêm		
         $mathanghh = new MATHANG();
+        // xử lý file upload
+        $danhmuc_id = $_POST["optdanhmuc"];
+        $thu_muc = "";
+        switch ($danhmuc_id) {
+            case "1":
+                $thu_muc = "vietnam";
+                break;
+            case "2":
+                $thu_muc = "nhatban";
+                break;
+            case "3":
+                $thu_muc = "trungquoc";
+                break;
+            case "4":
+                $thu_muc = "hanquoc";
+                break;
+            case "5":
+                $thu_muc = "phuongtay";
+                break;
+            default:
+                $thu_muc = "";
+        }
+        $thu_muc_anh = "images/products/" . $thu_muc . "/";
+        $hinhanh = $thu_muc_anh . basename($_FILES["filehinhanh"]["name"]); // Đường dẫn lưu trong CSDL
+        $duongdan = "../../" . $hinhanh;
+        // $hinhanh = "images/products/../" . basename($_FILES["filehinhanh"]["name"]); // đường dẫn ảnh lưu trong db
+        // $duongdan = "../../../" . $hinhanh; // nơi lưu file upload (đường dẫn tính theo vị trí hiện hành)
+        move_uploaded_file($_FILES["filehinhanh"]["tmp_name"], $duongdan);
+        // xử lý thêm	
         $mathanghh->settenmathang($_POST["txttenmathang"]);
         $mathanghh->settacgia($_POST["txttacgia"]);
         $mathanghh->setmota($_POST["txtmota"]);
@@ -85,17 +110,38 @@ switch ($action) {
         $mathanghh->setsoluongton($_POST["txtsoluongton"]);
         $mathanghh->setluotxem($_POST["txtluotxem"]);
         $mathanghh->setluotmua($_POST["txtluotmua"]);
-        $mathanghh->sethinhanh($_POST["txthinhcu"]);
-
+        //Xử lý ảnh
+        $hinhanh = $_POST["txthinhcu"];
         // upload file mới (nếu có)
         if ($_FILES["filehinhanh"]["name"] != "") {
-            // xử lý file upload -- Cần bổ dung kiểm tra: dung lượng, kiểu file, ...       
-            $hinhanh = "images/" . basename($_FILES["filehinhanh"]["name"]); // đường dẫn lưu csdl
-            $mathanghh->sethinhanh($hinhanh);
-            $duongdan = "../../" . $hinhanh; // đường dẫn lưu upload file        
+            //Kiểm tra danh mục
+            $danhmuc_id = $_POST["optdanhmuc"];
+            $thu_muc = "";
+            switch ($danhmuc_id) {
+                case "1":
+                    $thu_muc = "vietnam";
+                    break;
+                case "2":
+                    $thu_muc = "nhatban";
+                    break;
+                case "3":
+                    $thu_muc = "trungquoc";
+                    break;
+                case "4":
+                    $thu_muc = "hanquoc";
+                    break;
+                case "5":
+                    $thu_muc = "phuongtay";
+                    break;
+                default:
+                    $thu_muc = "";
+            }
+            $thu_muc_anh = "images/products/" . $thu_muc . "/";
+            $hinhanh = $thu_muc_anh . basename($_FILES["filehinhanh"]["name"]);
+            $duongdan = "../../" . $hinhanh;
             move_uploaded_file($_FILES["filehinhanh"]["tmp_name"], $duongdan);
         }
-
+        $mathanghh->sethinhanh($hinhanh);
         // sửa mặt hàng
         $mh->suamathang($mathanghh);
 

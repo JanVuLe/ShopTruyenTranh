@@ -34,6 +34,21 @@
       <a href="index.php?action=macdinh" class="btn btn-outline-secondary mt-2">Trở về</a>
     <?php endif; ?>
   </div>
+  <!-- Xử lý phân trang -->
+  <?php
+  $itemsPerPage = 10; // Số người dùng hiển thị trên mỗi trang
+  $currentPage = isset($_GET['page']) ? intval($_GET['page']) : 1; // Trang hiện tại
+  $totalItems = count($nguoidung); // Tổng số người dùng
+  $totalPages = ceil($totalItems / $itemsPerPage); // Tổng số trang
+
+  // Đảm bảo trang hiện tại không vượt quá giới hạn
+  if ($currentPage < 1) $currentPage = 1;
+  if ($currentPage > $totalPages) $currentPage = $totalPages;
+
+  // Tính toán vị trí bắt đầu và kết thúc
+  $startIndex = ($currentPage - 1) * $itemsPerPage;
+  $nguoidungToShow = array_slice($nguoidung, $startIndex, $itemsPerPage);
+  ?>
   <!-- Bản danh sách -->
   <table class="table table-hover">
     <thead>
@@ -47,7 +62,7 @@
       </tr>
     </thead>
     <tbody>
-      <?php foreach ($nguoidung as $nd): ?>
+      <?php foreach ($nguoidungToShow as $nd): ?>
         <tr>
           <td><?php echo htmlspecialchars($nd["email"]); ?></td>
           <td><?php echo htmlspecialchars($nd["sodienthoai"]); ?></td>
@@ -80,6 +95,26 @@
       <?php endforeach; ?>
     </tbody>
   </table>
+  <!-- Liên kết phân trang -->
+  <nav aria-label="Page navigation">
+    <ul class="pagination">
+      <?php if ($currentPage > 1): ?>
+        <li class="page-item">
+          <a class="page-link" href="?page=<?php echo $currentPage - 1; ?>">Trước</a>
+        </li>
+      <?php endif; ?>
+      <?php for ($i = 1; $i <= $totalPages; $i++): ?>
+        <li class="page-item <?php if ($i == $currentPage) echo 'active'; ?>">
+          <a class="page-link" href="?page=<?php echo $i; ?>"><?php echo $i; ?></a>
+        </li>
+      <?php endfor; ?>
+      <?php if ($currentPage < $totalPages): ?>
+        <li class="page-item">
+          <a class="page-link" href="?page=<?php echo $currentPage + 1; ?>">Sau</a>
+        </li>
+      <?php endif; ?>
+    </ul>
+  </nav>
 </div>
 <?php include("../inc/bottom.php"); ?>
 <script>

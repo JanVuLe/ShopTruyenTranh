@@ -56,7 +56,7 @@
 
 		<div class="my-3">
 			<input class="btn btn-primary" type="submit" value="Lưu">
-			<input class="btn btn-warning" type="reset" value="Hủy">
+			<input class="btn btn-warning" type="reset" value="Hủy" onclick="veindex()">
 		</div>
 	</form>
 </div>
@@ -66,6 +66,10 @@
 		.catch(error => {
 			console.error(error);
 		});
+
+	function veindex() {
+		window.location.href = 'index.php';
+	}
 </script>
 
 <?php include("../inc/bottom.php"); ?>
