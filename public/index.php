@@ -15,7 +15,6 @@ $danhmuc = $dm->laydanhmuc();
 $mh = new MATHANG();
 $mathangxemnhieu = $mh->laymathangxemnhieu();
 $dh = new DONHANG();
-$donhang = $dh->laydonhang();
 $dhct = new DONHANGCT();
 $donhangct = $dhct->layctdonhang();
 $nd = new NGUOIDUNG();
@@ -30,6 +29,9 @@ switch ($action) {
     case "null":
         $mathang = $mh->laymathang();
         include("main.php");
+        break;
+    case "gioithieu":
+        include("gioithieu.php");
         break;
     case "group":
         if (isset($_REQUEST["id"])) {
@@ -188,16 +190,6 @@ switch ($action) {
             }
         }
         break;
-    case "thongtin":
-        // đọc thông tin các đơn của khách
-        if (isset($_GET["mand"])) {
-            $donhangct = $dhct->layctdonhangtheodonhang($_GET["mand"]);
-            include("info.php");
-        } else {
-            $mathang = $mh->laymathang();
-            include("main.php");
-        }
-        break;
     case "xldangnhap":
         $email = $_POST["txtemail"];
         $matkhau = $_POST["txtmatkhau"];
@@ -220,11 +212,21 @@ switch ($action) {
     case "thongtin":
         // đọc thông tin các đơn của khách
         if (isset($_GET["mand"])) {
-            $donhang = $dh->laydonhangtheoidnguoidung($_GET["mand"]);
+            // Lấy đơn hàng theo id người dùng
+            $donhang = $_GET["mand"];
+            $danhsachdh = $dh->laydonhangtheoidnguoidung($donhang);
+            if (!$danhsachdh) {
+                echo "Không có đơn hàng cho người dùng này.";
+                exit;
+            }
+
+            // Lấy chi tiết đơn hàng
+            $chiTietDonHang = [];
+            foreach ($danhsachdh as $donhang) {
+                $chiTietDonHang[$donhang['id']] = $dhct->layctdonhangtheodonhang($donhang['id']);
+            }
+
             include("info.php");
-        } else {
-            $mathang = $mh->laymathang();
-            include("main.php");
         }
         break;
     case "dangxuat":
@@ -244,7 +246,7 @@ switch ($action) {
             $tranghh = 1;
         $batdau = ($tranghh-1)*$soluong;          // mặt hàng bắt đầu sẽ lấy
         $mathang = $mh->laymathangphantrang($batdau, $soluong);
-*/
+        */
         $mathang = $mh->laymathang();
         include("main.php");
         break;

@@ -1,39 +1,60 @@
 <?php include("inc/top.php"); ?>
 
-<table class="table table-hover table-transparent">
-    <tr>
-        <th>Mã Đơn Hàng</th>
-        <th>Tên người đặt</th>
-        <th>Ngày đặt</th>
-        <th>Tổng tiền</th>
-        <th>Ghi chú</th>
-        <th>Trạng thái</th>
-    </tr>
+<h3>Danh sách đơn hàng</h3>
+
+<ul class="order-list">
     <?php
-    foreach ($donhang as $d):
+    if (!empty($danhsachdh)) {
+        foreach ($danhsachdh as $d):
     ?>
-        <tr>
-            <td>
-                <a class="btn btn-outline-info" href="index.php?action=chitiet&id=<?php echo $d["id"]; ?>">
-                    <?php echo $d["id"]; ?>
-                </a>
-            </td>
-            <td><?php echo $d["hoten"]; ?></td>
-            <td><?php echo (new DateTime($d["ngay"]))->format("d-m-Y"); ?></td>
-            <td><?php echo $d["tongtien"]; ?></td>
-            <td><?php echo $d["ghichu"]; ?></td>
-            <td>
-                <?php if ($d['trangthai'] == 1) { ?>
-                    <a class="btn btn-danger" href="?action=khoa&trangthai=0&madh=<?php echo $d['id'] ?>">Hủy xác nhận</a>
-            </td>
-        <?php
-                } else { ?>
-            <a class="btn btn-success" href="?action=khoa&trangthai=1&madh=<?php echo $d['id'] ?>">Xác nhận</a>
-        <?php } ?>
-        </tr>
+            <li class="order-item">
+                <div><strong>Mã Đơn Hàng:</strong>
+                    <a href="index.php?action=chitiet&id=<?php echo $d["id"]; ?>">
+                        <?php echo $d["id"]; ?>
+                    </a>
+                </div>
+                <div><strong>Tên người đặt:</strong> <?php echo htmlspecialchars($d["hoten"]); ?></div>
+                <div><strong>Ngày đặt:</strong> <?php echo (new DateTime($d["ngay"]))->format("d-m-Y"); ?></div>
+                <div><strong>Tổng tiền:</strong> <?php echo number_format($d["tongtien"], 0, ',', '.'); ?> đ</div>
+                <div><strong>Ghi chú:</strong> <?php echo htmlspecialchars($d["ghichu"]); ?></div>
+                <div><strong>Trạng thái:</strong>
+                    <?php
+                    if ($d['trangthai'] == 1) {
+                        echo "<span class='badge bg-success'>Đã xác nhận</span>";
+                    } else {
+                        echo "<span class='badge bg-warning'>Chờ xác nhận</span>";
+                    }
+                    ?>
+                </div>
+                <!-- Hiển thị chi tiết đơn hàng -->
+                <div class="order-details">
+                    <h4 class="text-warning">Chi tiết đơn hàng</h4>
+                    <ul class="detail-list">
+                        <?php
+                        if (!empty($chiTietDonHang[$d['id']])) {
+                            foreach ($chiTietDonHang[$d['id']] as $ct):
+                        ?>
+                                <li class="detail-item">
+                                    <img src="../<?php echo htmlspecialchars($ct['hinhanh']); ?>" alt="<?php echo htmlspecialchars($ct['tenmathang']); ?>" class="item-image">
+                                    <span class="item-name"><?php echo htmlspecialchars($ct['tenmathang']); ?></span>
+                                    <span class="item-quantity">Số lượng: <?php echo $ct['soluong']; ?></span>
+                                    <span class="item-price">Giá: <?php echo number_format($ct['dongia'], 0, ',', '.'); ?> đ</span>
+                                </li>
+                        <?php
+                            endforeach;
+                        } else {
+                            echo "<li>Không có chi tiết đơn hàng.</li>";
+                        }
+                        ?>
+                    </ul>
+                </div>
+            </li>
     <?php
-    endforeach;
+        endforeach;
+    } else {
+        echo "<li>Không có đơn hàng nào.</li>";
+    }
     ?>
-</table>
+</ul>
 
 <?php include("inc/bottom.php"); ?>

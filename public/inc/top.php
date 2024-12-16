@@ -6,10 +6,9 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/css/bootstrap.min.css" rel="stylesheet">
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/js/bootstrap.bundle.min.js"></script>
+    <link href="inc/css/customize.css?v=1.0" rel="stylesheet">
     <title>Shop Truyện Tranh</title>
-
     <!-- Bootstrap icons-->
-    <link href="inc/css/customize.css" rel="stylesheet">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.5.0/font/bootstrap-icons.css" rel="stylesheet" />
     <link rel="shortcut icon" type="image/x-icon" href="../images/logo/logoPPT.png">
 </head>
@@ -24,7 +23,7 @@
             <div class="collapse navbar-collapse" id="navbarSupportedContent">
                 <ul class="navbar-nav me-auto mb-2 mb-lg-0 ms-lg-4">
                     <li class="nav-item"><a class="nav-link active" aria-current="page" href="index.php">Trang chủ</a></li>
-                    <li class="nav-item"><a class="nav-link" href="#!">Giới thiệu</a></li>
+                    <li class="nav-item"><a class="nav-link" href="index.php?action=gioithieu">Giới thiệu</a></li>
                     <li class="nav-item dropdown">
                         <a class="nav-link dropdown-toggle" id="navbarDropdown" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">Danh mục sản phẩm</a>
                         <ul class="dropdown-menu" aria-labelledby="navbarDropdown">

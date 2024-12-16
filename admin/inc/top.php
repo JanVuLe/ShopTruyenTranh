@@ -15,7 +15,7 @@
 	<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css">
 	<link href="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.13/css/select2.min.css" rel="stylesheet" />
 	<link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />
-
+	<link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" rel="stylesheet">
 	<!-- script js -->
 	<script src="../inc/js/app.js"></script>
 	<script src="https://cdn.ckeditor.com/ckeditor5/40.0.0/classic/ckeditor.js"></script>
@@ -71,8 +71,8 @@
 						KINH DOANH
 					</li>
 
-					<li class="sidebar-item">
-						<a class="sidebar-link" href="">
+					<li class="sidebar-item <?php if (strpos($_SERVER['REQUEST_URI'], "qlkhachhang") != false) echo "active"; ?>">
+						<a class="sidebar-link" href="../qlkhachhang/index.php">
 							<i class="align-middle" data-feather="users"></i> <span class="align-middle">Quản lý khách hàng</span>
 						</a>
 					</li>
