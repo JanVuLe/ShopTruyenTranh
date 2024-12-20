@@ -1,7 +1,7 @@
 <?php include("../inc/top.php"); ?>
 
 <h4 class="text-info">Danh sách danh mục</h4>
-<table class="table table-hover">
+<table class="table table-hover custom-table">
 	<tr>
 		<th>ID</th>
 		<th>Tên danh mục</th>

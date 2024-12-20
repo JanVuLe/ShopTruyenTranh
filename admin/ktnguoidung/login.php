@@ -1,27 +1,7 @@
 <!DOCTYPE html>
 <html>
 
-<head>
-
-	<meta charset="utf-8">
-	<meta name="viewport" content="width=device-width, initial-scale=1.0">
-
-	<title>Đăng Nhập - Shop Truyện Tranh</title>
-
-	<link href="../custom/css/bootstrap.min.css" rel="stylesheet">
-	<link href="../custom/font-awesome/css/font-awesome.css" rel="stylesheet">
-
-	<link href="../custom/css/animate.css" rel="stylesheet">
-	<link href="../custom/css/style.css" rel="stylesheet">
-	<style>
-		.image img {
-			width: 300px;
-			height: 300px;
-			max-width: 100%;
-			height: auto;
-		}
-	</style>
-</head>
+<?php include('../ktnguoidung/head.php') ?>
 
 <body class="gray-bg">
 
@@ -34,21 +14,33 @@
 			</div>
 			<div class="col-md-6">
 				<h2 class="font-bold">ĐANG NHẬP TÀI KHOẢN</h2>
+				<?php if (!empty($tb)): ?>
+					<div class="alert alert-danger text-center" role="alert">
+						<?php echo htmlspecialchars($tb); ?>
+					</div>
+				<?php endif; ?>
 				<div class="ibox-content">
-					<form class="m-t" role="form" action="index.php" method="post">
+					<form class="m-t" role="form" action="index.php" method="post" id="mainForm">
 						<div class="form-group">
 							<input class="form-control form-control-lg" type="email" name="txtemail" placeholder="Nhập email" />
 						</div>
 						<div class="form-group">
 							<input class="form-control form-control-lg" type="password" name="txtmatkhau" placeholder="Nhập mật khẩu" />
 						</div>
-						<input type="hidden" name="action" value="xldangnhap">
-						<input type="submit" class="btn btn-primary block full-width m-b" value="Đăng nhập">
+						<input type="hidden" name="action" id="actionField" value="">
+						<button type="button" class="btn btn-primary block full-width m-b" id="loginBtn">Đăng nhập</button>
+						<!-- <input type="hidden" name="action" value="xldangnhap">
+						<input type="submit" class="btn btn-primary block full-width m-b" value="Đăng nhập"> -->
+						<a class="text-muted text-center" href="">Quên mật khẩu?</a>
+						<br>
 						<br>
 						<p class="text-muted text-center">
 							<small>Bạn chưa có tài khoản?</small>
 						</p>
-						<a class="btn btn-sm btn-white btn-block" href="register.html">Tạo tài khoản</a>
+
+						<button type="button" class="btn btn-sm btn-white block full-width m-b" id="registerBtn">Đăng ký</button>
+						<!-- <input type="submit" class="btn btn-sm btn-white block full-width m-b" value="Đăng ký">
+						<input type="hidden" name="action" value="dangky"> -->
 					</form>
 				</div>
 			</div>
@@ -63,7 +55,17 @@
 			</div>
 		</div>
 	</div>
+	<script>
+		document.getElementById('loginBtn').addEventListener('click', function() {
+			document.getElementById('actionField').value = 'xldangnhap'; // Đặt giá trị action cho đăng nhập
+			document.getElementById('mainForm').submit(); // Gửi biểu mẫu
+		});
 
+		document.getElementById('registerBtn').addEventListener('click', function() {
+			document.getElementById('actionField').value = 'dangky'; // Đặt giá trị action cho đăng ký
+			document.getElementById('mainForm').submit(); // Gửi biểu mẫu
+		});
+	</script>
 </body>
 
 </html>

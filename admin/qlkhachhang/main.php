@@ -36,7 +36,7 @@
         <?php endif; ?>
     </div>
     <!-- Bản danh sách -->
-    <table class="table table-hover">
+    <table class="table table-hover custom-table">
         <thead>
             <tr>
                 <th><a href="index.php?sort=email">Email</a></th>

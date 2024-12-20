@@ -143,4 +143,112 @@ class DONHANG
 			exit();
 		}
 	}
+
+	// Lấy đơn hàng mới nhất trong ngày
+	public function laydonhangmoi()
+	{
+		$db = DATABASE::connect();
+		try {
+			$sql = "SELECT * 
+					FROM donhang 
+					WHERE DATE(ngay) = CURDATE() AND trangthai = 0 
+					ORDER BY ngay DESC";
+			$cmd = $db->prepare($sql);
+			$cmd->execute();
+			$result = $cmd->fetchAll();
+			return $result;
+		} catch (PDOException $e) {
+			$error_message = $e->getMessage();
+			echo "<p>Lỗi truy vấn: $error_message</p>";
+			exit();
+		}
+	}
+
+	//Đếm số đơn hàng mới trong ngày
+	public function diemdonhangmoi()
+	{
+		$db = DATABASE::connect();
+		try {
+			$sql = "SELECT COUNT(*) AS so_luong
+					FROM donhang
+					WHERE DATE(ngay) = CURDATE() AND trangthai = 0";
+			$cmd = $db->prepare($sql);
+			$cmd->execute();
+			$result = $cmd->fetch();
+			return $result;
+		} catch (PDOException $e) {
+			$error_message = $e->getMessage();
+			echo "<p>Lỗi truy vấn: $error_message</p>";
+			exit();
+		}
+	}
+
+	//Lấy đơn hàng đã xác nhận
+	public function laydonhangxacnhan()
+	{
+		$dbcon = DATABASE::connect();
+		try {
+			$sql = "SELECT dh.*, nd.hoten, dc.diachi 
+					FROM donhang dh, nguoidung nd, diachi dc 
+					WHERE dh.nguoidung_id = nd.id AND dh.diachi_id = dc.id AND dh.trangthai = 1;";
+			$cmd = $dbcon->prepare($sql);
+			$cmd->execute();
+			$result = $cmd->fetchAll();
+			return $result;
+		} catch (PDOException $e) {
+			$error_message = $e->getMessage();
+			echo "<p>Lỗi truy vấn: $error_message</p>";
+			exit();
+		}
+	}
+
+	// Lấy đơn hàng theo ngày
+	public function laydonhangtheongay($start_day, $end_day)
+	{
+		$dbcon = DATABASE::connect();
+		try {
+			$sql = "SELECT dh.*, nd.hoten, dc.diachi 
+                	FROM donhang dh, nguoidung nd, diachi dc 
+                	WHERE dh.nguoidung_id = nd.id 
+                  		AND dh.diachi_id = dc.id
+						AND dh.trangthai = 1
+                  		AND DATE(dh.ngay) BETWEEN :start_day AND :end_day;";
+			$cmd = $dbcon->prepare($sql);
+			$cmd->bindParam(':start_day', $start_day);
+			$cmd->bindParam(':end_day', $end_day);
+			$cmd->execute();
+			$result = $cmd->fetchAll();
+			return $result;
+		} catch (PDOException $e) {
+			$error_message = $e->getMessage();
+			echo "<p>Lỗi truy vấn: $error_message</p>";
+			exit();
+		}
+	}
+
+	// Tính tổng tiền theo từng ngày
+	public function tongtientheongay($start_day, $end_day)
+	{
+		$dbcon = DATABASE::connect();
+		try {
+			$sql = "SELECT DATE(ngay) AS ngay, SUM(tongtien) AS tong_donhang
+					FROM donhang
+					WHERE trangthai = 1
+  						AND DATE(ngay) BETWEEN :start_day AND :end_day
+					GROUP BY DATE(ngay)
+					ORDER BY DATE(ngay);";
+			$cmd = $dbcon->prepare($sql);
+			$cmd->bindParam(':start_day', $start_day);
+			$cmd->bindParam(':end_day', $end_day);
+			$cmd->execute();
+			$result = $cmd->fetchAll();
+			return $result;
+		} catch (PDOException $e) {
+			$error_message = $e->getMessage();
+			echo "<p>Lỗi truy vấn: $error_message</p>";
+			exit();
+		}
+	}
+
+	// Tính tổng tiền theo ngày đã chọn
 }

@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
 
+
 <head>
 	<meta charset="utf-8">
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -12,6 +13,7 @@
 	<!-- link css -->
 	<link href="../inc/css/app.css" rel="stylesheet">
 	<link href="../inc/css/style.css" rel="stylesheet">
+	<link href="../custom/css/customize.css?v=1.0" rel="stylesheet">
 	<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css">
 	<link href="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.13/css/select2.min.css" rel="stylesheet" />
 	<link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />
@@ -83,8 +85,8 @@
 						</a>
 					</li>
 
-					<li class="sidebar-item">
-						<a class="sidebar-link" href="">
+					<li class="sidebar-item <?php if (strpos($_SERVER['REQUEST_URI'], "qldoanhthu") != false) echo "active"; ?>">
+						<a class="sidebar-link" href="../qldoanhthu/index.php">
 							<i class="align-middle" data-feather="bar-chart-2"></i> <span class="align-middle">Quản lý doanh thu</span>
 						</a>
 					</li>
@@ -121,7 +123,6 @@
 				<a class="sidebar-toggle js-sidebar-toggle">
 					<i class="hamburger align-self-center"></i>
 				</a>
-
 				<div class="navbar-collapse collapse">
 					<ul class="navbar-nav navbar-align">
 						<li class="nav-item dropdown">
@@ -152,39 +153,6 @@
 								</div>
 								<div class="dropdown-menu-footer">
 									<a href="#" class="text-muted">Tất cả thông báo</a>
-								</div>
-							</div>
-						</li>
-						<li class="nav-item dropdown">
-							<a class="nav-icon dropdown-toggle" href="#" id="messagesDropdown" data-bs-toggle="dropdown">
-								<div class="position-relative">
-									<i class="align-middle" data-feather="message-square"></i>
-									<span class="indicator">1</span>
-								</div>
-							</a>
-							<div class="dropdown-menu dropdown-menu-lg dropdown-menu-end py-0" aria-labelledby="messagesDropdown">
-								<div class="dropdown-menu-header">
-									<div class="position-relative">
-										1 tin nhắn mới
-									</div>
-								</div>
-								<div class="list-group">
-									<a href="#" class="list-group-item">
-										<div class="row g-0 align-items-center">
-											<div class="col-2">
-												<img src="../../images/users/doraemon.jpg" class="avatar img-fluid rounded-circle" alt="Mèo máy Đô rê mon">
-											</div>
-											<div class="col-10 ps-2">
-												<div class="text-dark">Doraemon</div>
-												<div class="text-muted small mt-1">Mail của mèo máy đến từ tương lai nè ^.^</div>
-												<div class="text-muted small mt-1">15 phút trước</div>
-											</div>
-										</div>
-									</a>
-
-								</div>
-								<div class="dropdown-menu-footer">
-									<a href="#" class="text-muted">Tất cả tin nhắn</a>
 								</div>
 							</div>
 						</li>

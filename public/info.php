@@ -1,6 +1,6 @@
 <?php include("inc/top.php"); ?>
 
-<h3>Danh sách đơn hàng</h3>
+<h3 class="text-info">Danh sách đơn hàng</h3>
 
 <ul class="order-list">
     <?php

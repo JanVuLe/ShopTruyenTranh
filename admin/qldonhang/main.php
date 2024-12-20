@@ -21,7 +21,7 @@ if ($currentPage > $totalPages) $currentPage = $totalPages;
 $startIndex = ($currentPage - 1) * $itemsPerPage;
 $donhangToShow = array_slice($donhang, $startIndex, $itemsPerPage);
 ?>
-<table class="table table-hover">
+<table class="table table-hover custom-table">
     <tr>
         <th>ID</th>
         <th>Tên người đặt</th>

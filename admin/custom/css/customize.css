@@ -1,0 +1,46 @@
+.middle-box {
+    width: 100%; 
+    max-width: 400px; 
+    margin: auto; 
+}
+
+.middle-box .image {
+    width: 100%; 
+    height: auto; 
+    text-align: center; 
+}
+
+.middle-box .image img {
+    width: 100%; 
+    height: auto; 
+}
+
+.image img {
+    width: 300px;
+    height: 300px;
+    max-width: 100%;
+    height: auto;
+}
+
+.container-custom {
+    max-width: 1200px;
+    margin: 50px auto;
+}
+.form-container {
+    background-color: white;
+    border-radius: 8px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    padding: 20px;
+}
+.revenue-container {
+    background-color: #f1f1f1;
+    border-radius: 8px;
+    padding: 20px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+.custom-table {
+    border-radius: 10px;
+    overflow: hidden;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    background-color: white;
+}

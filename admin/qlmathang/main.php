@@ -52,7 +52,7 @@ if (isset($_GET['selectedId'])) {
 		$currentPage = $totalPages;
 	}
 ?>
-	<table class="table table-hover">
+	<table class="table table-hover custom-table">
 		<tr>
 			<th>Tên mặt hàng</th>
 			<th>Giá bán</th>

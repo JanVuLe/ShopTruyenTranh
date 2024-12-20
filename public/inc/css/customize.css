@@ -26,12 +26,12 @@ html,
 body {
     height: 100%;
     margin: 0;
-    background-color: #86b1db;
 }
 
 body {
     display: flex;
     flex-direction: column;
+    background-color: #00264d;
 }
 
 footer {
