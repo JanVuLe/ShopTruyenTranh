@@ -44,15 +44,20 @@ switch ($action) {
             include("login.php");
             break;
         }
-
         $nguoidung = $nd->timkiemtheoemail($email);
         if (!$nguoidung) {
             $tb = "Email này chưa được đăng ký.";
             include("login.php");
         } else {
             if ($nd->kiemtranguoidunghople($email, $matkhau) == TRUE) {
-                $_SESSION["nguoidung"] = $nd->laythongtinnguoidung($email); // đặt biến session
-                include("main.php");
+                $nguoidung = $nd->laythongtinnguoidung($email);
+                if ($nguoidung["loai"] == 1 || $nguoidung["loai"] == 2) {
+                    $_SESSION["nguoidung"] = $nguoidung; // đặt biến session
+                    include("main.php");
+                } else {
+                    $tb = "Tài khoản này không có quyền try cập.";
+                    include("login.php");
+                }
             } else {
                 $tb = "Mật khẩu không đúng.";
                 include("login.php");

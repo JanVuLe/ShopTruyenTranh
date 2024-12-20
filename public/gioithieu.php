@@ -2,9 +2,11 @@
 <!-- Phần Giới thiệu về cửa hàng -->
 <section class="py-5">
     <div class="container px-4 px-lg-5 mt-1">
-        <h2 class="text-center mb-4">Về Chúng Tôi</h2>
-        <p>Chào mừng bạn đến với Shop Truyện Tranh! Chúng tôi tự hào là địa chỉ tin cậy cho những người yêu thích truyện tranh trên toàn thế giới. Chúng tôi cung cấp hàng nghìn tựa truyện từ các thể loại khác nhau như hành động, phiêu lưu, tâm lý, khoa học viễn tưởng và nhiều thể loại khác.</p>
-        <p>Chúng tôi cam kết mang đến cho khách hàng những trải nghiệm tuyệt vời với dịch vụ hỗ trợ tận tình, chất lượng sản phẩm đảm bảo và nhiều chương trình ưu đãi hấp dẫn. Nếu bạn là một fan truyện tranh thực thụ, Shop Truyện Tranh chính là lựa chọn lý tưởng cho bạn!</p>
+        <h2 class="text-center text-white mb-4">Về Chúng Tôi</h2>
+        <div class="text-white">
+            <p>Chào mừng bạn đến với Shop Truyện Tranh! Chúng tôi tự hào là địa chỉ tin cậy cho những người yêu thích truyện tranh trên toàn thế giới. Chúng tôi cung cấp hàng nghìn tựa truyện từ các thể loại khác nhau như hành động, phiêu lưu, tâm lý, khoa học viễn tưởng và nhiều thể loại khác.</p>
+            <p>Chúng tôi cam kết mang đến cho khách hàng những trải nghiệm tuyệt vời với dịch vụ hỗ trợ tận tình, chất lượng sản phẩm đảm bảo và nhiều chương trình ưu đãi hấp dẫn. Nếu bạn là một fan truyện tranh thực thụ, Shop Truyện Tranh chính là lựa chọn lý tưởng cho bạn!</p>
+        </div>
     </div>
 </section>
 
@@ -46,9 +48,9 @@
 <!-- Liên hệ -->
 <section class="py-5">
     <div class="container px-4 px-lg-5">
-        <h3 class="text-center mb-4">Liên Hệ Với Chúng Tôi</h3>
-        <p>Chúng tôi luôn sẵn sàng hỗ trợ bạn. Nếu bạn có bất kỳ câu hỏi hay yêu cầu nào, hãy liên hệ với chúng tôi qua thông tin dưới đây:</p>
-        <ul class="list-unstyled">
+        <h3 class="text-center mb-4 text-white">Liên Hệ Với Chúng Tôi</h3>
+        <p class="text-white">Chúng tôi luôn sẵn sàng hỗ trợ bạn. Nếu bạn có bất kỳ câu hỏi hay yêu cầu nào, hãy liên hệ với chúng tôi qua thông tin dưới đây:</p>
+        <ul class="list-unstyled text-white">
             <li>Email: vu_dth216249@student.agu.edu.vn</li>
             <li>Điện thoại: 078 3839516</li>
             <li>Địa chỉ: xã Hòa An, huyện Chợ Mới, An Giang</li>

@@ -257,6 +257,11 @@ switch ($action) {
         $mathang = $mh->laymathang();
         include("main.php");
         break;
+    case "timkiem":
+        $tensp = isset($_GET["tensp"]) ? $_GET["tensp"] : '';
+        $mathang = $mh->timkiemtheoten($tensp);
+        include("main.php");
+        break;
     default:
         break;
 }

@@ -303,4 +303,23 @@ class MATHANG
             exit();
         }
     }
+
+    // Tìm kiếm theo tên
+    public function timkiemtheoten($tenmathang)
+    {
+        $dbcon = DATABASE::connect();
+        try {
+            $sql = "SELECT * FROM mathang WHERE tenmathang LIKE :tenmathang";
+            $cmd = $dbcon->prepare($sql);
+            $tenmathang = "%" . $tenmathang . "%";
+            $cmd->bindValue(":tenmathang", $tenmathang);
+            $result = $cmd->execute();
+            $result = $cmd->fetchAll();
+            return $result;
+        } catch (PDOException $e) {
+            $error_message = $e->getMessage();
+            echo "<p>Lỗi truy vấn: $error_message</p>";
+            exit();
+        }
+    }
 }

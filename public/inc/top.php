@@ -50,7 +50,20 @@
             </div>
         </div>
     </nav>
-
+    <div class="container mt-3">
+        <form class="d-flex" action="index.php" method="get">
+            <input type="hidden" name="action" value="timkiem">
+            <input
+                class="form-control me-2"
+                type="search"
+                placeholder="Tìm kiếm sản phẩm..."
+                aria-label="Tìm kiếm"
+                name="tensp">
+            <button class="btn btn-outline-success" type="submit">
+                <i class="bi bi-search"></i>
+            </button>
+        </form>
+    </div>
     <!-- Section-->
     <section class="py-5">
         <div class="container px-4 px-lg-5 mt-1">

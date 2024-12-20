@@ -32,8 +32,6 @@ include("inc/top.php");
                 <td class="text-danger fw-bold"><?php echo number_format(tinhtiengiohang()); ?>đ</td>
             </tr>
         </table>
-        <div class="text-danger fw-bold">Lưu ý: trước khi nhấn nút "Cập nhật" hoặc "Thanh toán" thì kiểm tra nếu số lượng mua > số lượng có trong csdl thì không được thực hiện. </div>
-
         <div class="row">
             <div class="col text-white"><a class="btn btn-danger" href="index.php?action=xoagiohang">Xóa tất cả</a> (Xóa một mặt hàng nhập số lượng = 0)</div>
             <div class="col text-end">
