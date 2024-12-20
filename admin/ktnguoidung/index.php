@@ -19,10 +19,9 @@ if (isset($_REQUEST["action"])) {
 
 $nd = new NGUOIDUNG();
 $dh = new DONHANG();
-
+$donhang = $dh->laydonhangmoi();
 switch ($action) {
     case "macdinh":
-        $donhang = $dh->laydonhangmoi();
         include("main.php");
         break;
     case "dangnhap":
@@ -118,8 +117,6 @@ switch ($action) {
         $_SESSION["nguoidung"] = $nd->laythongtinnguoidung($email);
         include("main.php");
         break;
-
-
     case "matkhau":
         include("changepass.php");
         break;

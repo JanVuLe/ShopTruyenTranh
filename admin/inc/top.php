@@ -1,6 +1,12 @@
+<?php
+require_once '../../model/donhang.php';
+$donh = new DONHANG();
+$result = $donh->diemdonhangmoi();
+$donHangMoi = $donh->laydonhangmoi();
+$soLuongDonHangMoi = $result['so_luong'];
+?>
 <!DOCTYPE html>
 <html lang="en">
-
 
 <head>
 	<meta charset="utf-8">
@@ -90,30 +96,6 @@
 							<i class="align-middle" data-feather="bar-chart-2"></i> <span class="align-middle">Quản lý doanh thu</span>
 						</a>
 					</li>
-
-					<li class="sidebar-item">
-						<a class="sidebar-link" href="">
-							<i class="align-middle" data-feather="shopping-bag"></i> <span class="align-middle">Chương trình khuyến mãi</span>
-						</a>
-					</li>
-
-
-
-					<li class="sidebar-header text-info">
-						CẤU HÌNH WEBSITE
-					</li>
-
-					<li class="sidebar-item">
-						<a class="sidebar-link" href="">
-							<i class="align-middle" data-feather="book"></i> <span class="align-middle">Thông tin</span>
-						</a>
-					</li>
-
-					<li class="sidebar-item">
-						<a class="sidebar-link" href="">
-							<i class="align-middle" data-feather="image"></i> <span class="align-middle">Hình ảnh</span>
-						</a>
-					</li>
 				</ul>
 			</div>
 		</nav>
@@ -129,30 +111,40 @@
 							<a class="nav-icon dropdown-toggle" href="#" id="alertsDropdown" data-bs-toggle="dropdown">
 								<div class="position-relative">
 									<i class="align-middle" data-feather="bell"></i>
-									<span class="indicator">1</span>
+									<span class="indicator"><?php echo $soLuongDonHangMoi; ?></span>
 								</div>
 							</a>
 							<div class="dropdown-menu dropdown-menu-lg dropdown-menu-end py-0" aria-labelledby="alertsDropdown">
 								<div class="dropdown-menu-header">
-									1 thông báo mới
+									<?php if ($soLuongDonHangMoi > 0): ?>
+										<?php echo $soLuongDonHangMoi; ?> đơn hàng mới
+									<?php else: ?>
+										Không có đơn hàng mới
+									<?php endif; ?>
 								</div>
 								<div class="list-group">
-									<a href="#" class="list-group-item">
-										<div class="row g-0 align-items-center">
-											<div class="col-2">
-												<i class="text-danger" data-feather="alert-circle"></i>
-											</div>
-											<div class="col-10">
-												<div class="text-dark">Đơn hàng mới</div>
-												<div class="text-muted small mt-1">Xem danh sách đơn hàng chờ xác nhận.</div>
-												<div class="text-muted small mt-1">5 phút trước</div>
-											</div>
-										</div>
-									</a>
-
+									<?php if (!empty($donHangMoi)) : ?>
+										<?php foreach ($donHangMoi as $donHang) : ?>
+											<a href="../ktnguoidung/index.php" class="list-group-item">
+												<div class="row g-0 align-items-center">
+													<div class="col-2">
+														<i class="text-danger" data-feather="alert-circle"></i>
+													</div>
+													<div class="col-10">
+														<div class="text-dark">Đơn hàng ID: <?= $donHang['id'] ?></div>
+														<div class="text-muted small mt-1">
+															Đặt lúc: <?= date('H:i:s', strtotime($donHang['ngay'])) ?>
+														</div>
+													</div>
+												</div>
+											</a>
+										<?php endforeach; ?>
+									<?php else : ?>
+										<div class="text-muted small mt-1">Không có đơn hàng mới.</div>
+									<?php endif; ?>
 								</div>
 								<div class="dropdown-menu-footer">
-									<a href="#" class="text-muted">Tất cả thông báo</a>
+									<a href="#" class="text-muted">Tất cả đơn hàng</a>
 								</div>
 							</div>
 						</li>

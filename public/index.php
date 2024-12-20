@@ -85,9 +85,15 @@ switch ($action) {
         if (isset($_REQUEST["mh"])) {
             $mh = $_REQUEST["mh"];
             foreach ($mh as $id => $soluong) {
-                if ($soluong > 0)
+
+                $soluongton = laysoluongton($id);
+                if ($soluongton == 0) {
+                    $tb = "Mặt hàng $id đã hết hàng!";
+                    continue;
+                }
+                if ($soluong > 0) {
                     capnhatsoluong($id, $soluong);
-                else
+                } else
                     xoamotmathang($id);
             }
         }
@@ -101,6 +107,7 @@ switch ($action) {
         break;
     case "thanhtoan":
         $giohang = laygiohang();
+
         include("checkout.php");
         break;
     case "luudonhang":

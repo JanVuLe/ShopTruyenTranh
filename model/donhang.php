@@ -151,8 +151,7 @@ class DONHANG
 		try {
 			$sql = "SELECT * 
 					FROM donhang 
-					WHERE DATE(ngay) = CURDATE() AND trangthai = 0 
-					ORDER BY ngay DESC";
+					WHERE DATE(ngay) = CURDATE() AND trangthai = 0";
 			$cmd = $db->prepare($sql);
 			$cmd->execute();
 			$result = $cmd->fetchAll();
@@ -249,6 +248,4 @@ class DONHANG
 			exit();
 		}
 	}
-
-	// Tính tổng tiền theo ngày đã chọn
 }

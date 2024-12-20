@@ -284,4 +284,23 @@ class MATHANG
             exit();
         }
     }
+
+    // Lấy số lượng tồn của mặt hàng
+    public function laysoluongton($id)
+    {
+        $dbcon = DATABASE::connect();
+        try {
+            $sql = "SELECT soluongton FROM mathang WHERE id=:id";
+            $cmd = $dbcon->prepare($sql);
+            $cmd->bindValue(":id", $id);
+            $result = $cmd->execute();
+            $result = $cmd->fetch();
+            return $result;
+            return $result ? (int)$result['soluongton'] : 0;
+        } catch (PDOException $e) {
+            $error_message = $e->getMessage();
+            echo "<p>Lỗi truy vấn: $error_message</p>";
+            exit();
+        }
+    }
 }

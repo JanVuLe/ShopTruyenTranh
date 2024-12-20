@@ -8,7 +8,7 @@
         <h4 class="text-info text-center">ĐỔI MẬT KHẨU</h4>
       </div>
       <div class="card-body">
-        <form method="post" name="f" action="../ktnguoidung/index.php">
+        <form method="post" name="f" action="index.php">
           <div class="my-3">
             <label class="form-label">Email</label>
             <input class="form-control" type="text" name="txtemail" value="<?php echo $_SESSION["nguoidung"]["email"]; ?>" disabled>
