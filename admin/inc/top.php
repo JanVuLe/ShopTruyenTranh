@@ -96,6 +96,12 @@ $soLuongDonHangMoi = $result['so_luong'];
 							<i class="align-middle" data-feather="bar-chart-2"></i> <span class="align-middle">Quản lý doanh thu</span>
 						</a>
 					</li>
+
+					<li class="sidebar-item <?php if (strpos($_SERVER['REQUEST_URI'], "qlhuyenmai") != false) echo "active"; ?>">
+						<a class="sidebar-link" href="../qlkhuyenmai/index.php">
+							<i class="align-middle" data-feather="dollar-sign"></i> <span class="align-middle">Quản lý khuyến mãi</span>
+						</a>
+					</li>
 				</ul>
 			</div>
 		</nav>
