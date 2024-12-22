@@ -7,12 +7,12 @@ class MATHANG
     private $tacgia;
     private $mota;
     private $giagoc;
-    private $giaban;
     private $soluongton;
     private $hinhanh;
     private $danhmuc_id;
     private $luotxem;
     private $luotmua;
+    private $id_khuyenmai;
 
     public function getid()
     {
@@ -54,14 +54,6 @@ class MATHANG
     {
         $this->giagoc = $value;
     }
-    public function getgiaban()
-    {
-        return $this->giaban;
-    }
-    public function setgiaban($value)
-    {
-        $this->giaban = $value;
-    }
     public function getsoluongton()
     {
         return $this->soluongton;
@@ -102,6 +94,14 @@ class MATHANG
     {
         $this->luotmua = $value;
     }
+    public function getid_khuyenmai()
+    {
+        return $this->id_khuyenmai;
+    }
+    public function setid_khuyenmai($value)
+    {
+        $this->id_khuyenmai = $value;
+    }
 
 
     // Lấy danh sách
@@ -120,12 +120,68 @@ class MATHANG
             exit();
         }
     }
+
+    // Lấy mặt hàng kèm khuyến mãi
+    public function laymathangkhuyenmai()
+    {
+        $dbcon = DATABASE::connect();
+        try {
+            $sql = "SELECT  mh.*,
+                            COALESCE(
+                                mh.giagoc * (1 - km.phantramgiam / 100), 
+                                mh.giagoc
+                            ) AS giaban, km.tenkhuyenmai, km.ngaybatdau, km.ngayketthuc, km.phantramgiam
+                    FROM mathang mh
+                    LEFT JOIN 
+                        khuyenmai km ON mh.id_khuyenmai = km.id
+                    WHERE 
+                        km.ngaybatdau <= CURDATE() AND km.ngayketthuc >= CURDATE()
+                        OR mh.id_khuyenmai IS NULL";
+            $cmd = $dbcon->prepare($sql);
+            $cmd->execute();
+            $result = $cmd->fetchAll();
+            return $result;
+        } catch (PDOException $e) {
+            $error_message = $e->getMessage();
+            echo "<p>Lỗi truy vấn: $error_message</p>";
+            exit();
+        }
+    }
     // Lấy danh sách mặt hàng thuộc 1 danh mục
     public function laymathangtheodanhmuc($danhmuc_id)
     {
         $dbcon = DATABASE::connect();
         try {
             $sql = "SELECT * FROM mathang WHERE danhmuc_id=:madm";
+            $cmd = $dbcon->prepare($sql);
+            $cmd->bindValue(":madm", $danhmuc_id);
+            $cmd->execute();
+            $result = $cmd->fetchAll();
+            return $result;
+        } catch (PDOException $e) {
+            $error_message = $e->getMessage();
+            echo "<p>Lỗi truy vấn: $error_message</p>";
+            exit();
+        }
+    }
+
+    // Lấy mặt hàng theo danh muc kèm khuyến mãi
+    public function laymathangkhuyenmaitheodanhmuc($danhmuc_id)
+    {
+        $dbcon = DATABASE::connect();
+        try {
+            $sql = "SELECT  mh.*,
+                            COALESCE(
+                                mh.giagoc * (1 - km.phantramgiam / 100), 
+                                mh.giagoc
+                            ) AS giaban, km.tenkhuyenmai, km.ngaybatdau, km.ngayketthuc, km.phantramgiam
+                    FROM mathang mh
+                    LEFT JOIN 
+                        khuyenmai km ON mh.id_khuyenmai = km.id
+                    WHERE 
+                        km.ngaybatdau <= CURDATE() AND km.ngayketthuc >= CURDATE()
+                        OR mh.id_khuyenmai IS NULL
+                        AND danhmuc_id=:madm";
             $cmd = $dbcon->prepare($sql);
             $cmd->bindValue(":madm", $danhmuc_id);
             $cmd->execute();
@@ -155,6 +211,36 @@ class MATHANG
             exit();
         }
     }
+
+    //Lấy mặt hàng theo id và khuyến mãi
+    public function laymathangkhuyenmaitheoid($id)
+    {
+        $dbcon = DATABASE::connect();
+        try {
+            $sql = "SELECT  mh.*,
+                            COALESCE(
+                                mh.giagoc * (1 - km.phantramgiam / 100), 
+                                mh.giagoc
+                            ) AS giaban, km.tenkhuyenmai, km.ngaybatdau, km.ngayketthuc, km.phantramgiam
+                    FROM mathang mh
+                    LEFT JOIN 
+                        khuyenmai km ON mh.id_khuyenmai = km.id
+                    WHERE 
+                        km.ngaybatdau <= CURDATE() AND km.ngayketthuc >= CURDATE()
+                        OR mh.id_khuyenmai IS NULL
+                        AND mh.id=:id";
+            $cmd = $dbcon->prepare($sql);
+            $cmd->bindValue(":id", $id);
+            $cmd->execute();
+            $result = $cmd->fetch();
+            return $result;
+        } catch (PDOException $e) {
+            $error_message = $e->getMessage();
+            echo "<p>Lỗi truy vấn: $error_message</p>";
+            exit();
+        }
+    }
+
     // Cập nhật lượt xem
     public function tangluotxem($id)
     {
@@ -176,7 +262,18 @@ class MATHANG
     {
         $dbcon = DATABASE::connect();
         try {
-            $sql = "SELECT * FROM mathang ORDER BY luotxem DESC LIMIT 3";
+            $sql = "SELECT  mh.*,
+                            COALESCE(
+                                mh.giagoc * (1 - km.phantramgiam / 100), 
+                                mh.giagoc
+                            ) AS giaban, km.tenkhuyenmai, km.ngaybatdau, km.ngayketthuc, km.phantramgiam
+                    FROM mathang mh
+                    LEFT JOIN khuyenmai km ON mh.id_khuyenmai = km.id
+                    WHERE 
+                        (km.ngaybatdau <= CURDATE() AND km.ngayketthuc >= CURDATE())
+                        OR mh.id_khuyenmai IS NULL
+                    ORDER BY mh.luotxem DESC
+                    LIMIT 3";
             $cmd = $dbcon->prepare($sql);
             $cmd->execute();
             $result = $cmd->fetchAll();
@@ -193,17 +290,17 @@ class MATHANG
     {
         $dbcon = DATABASE::connect();
         try {
-            $sql = "INSERT INTO mathang(tenmathang,tacgia,mota,giagoc,giaban,soluongton,danhmuc_id,hinhanh,luotxem,luotmua) 
-                VALUES(:tenmathang,:tacgia,:mota,:giagoc,:giaban,:soluongton,:danhmuc_id,:hinhanh,0,0)";
+            $sql = "INSERT INTO mathang(tenmathang,tacgia,mota,giagoc,soluongton,danhmuc_id,hinhanh,luotxem,luotmua,id_khuyenmai) 
+                VALUES(:tenmathang,:tacgia,:mota,:giagoc,:soluongton,:danhmuc_id,:hinhanh,0,0,:id_khuyenmai)";
             $cmd = $dbcon->prepare($sql);
             $cmd->bindValue(":tenmathang", $mathang->tenmathang);
             $cmd->bindValue(":tacgia", $mathang->tacgia);
             $cmd->bindValue(":mota", $mathang->mota);
             $cmd->bindValue(":giagoc", $mathang->giagoc);
-            $cmd->bindValue(":giaban", $mathang->giaban);
             $cmd->bindValue(":soluongton", $mathang->soluongton);
             $cmd->bindValue(":danhmuc_id", $mathang->danhmuc_id);
             $cmd->bindValue(":hinhanh", $mathang->hinhanh);
+            $cmd->bindValue(":id_khuyenmai", $mathang->id_khuyenmai);
             $result = $cmd->execute();
             return $result;
         } catch (PDOException $e) {
@@ -239,24 +336,24 @@ class MATHANG
                                         tacgia=:tacgia,
                                         mota=:mota,
                                         giagoc=:giagoc,
-                                        giaban=:giaban,
                                         soluongton=:soluongton,
                                         danhmuc_id=:danhmuc_id,
                                         hinhanh=:hinhanh,
                                         luotxem=:luotxem,
-                                        luotmua=:luotmua
+                                        luotmua=:luotmua,
+                                        id_khuyenmai=:id_khuyenmai
                                         WHERE id=:id";
             $cmd = $dbcon->prepare($sql);
             $cmd->bindValue(":tenmathang", $mathang->tenmathang);
             $cmd->bindValue(":tacgia", $mathang->tacgia);
             $cmd->bindValue(":mota", $mathang->mota);
             $cmd->bindValue(":giagoc", $mathang->giagoc);
-            $cmd->bindValue(":giaban", $mathang->giaban);
             $cmd->bindValue(":soluongton", $mathang->soluongton);
             $cmd->bindValue(":danhmuc_id", $mathang->danhmuc_id);
             $cmd->bindValue(":hinhanh", $mathang->hinhanh);
             $cmd->bindValue(":luotxem", $mathang->luotxem);
             $cmd->bindValue(":luotmua", $mathang->luotmua);
+            $cmd->bindValue(":id_khuyenmai", $mathang->id_khuyenmai);
             $cmd->bindValue(":id", $mathang->id);
             $result = $cmd->execute();
             return $result;

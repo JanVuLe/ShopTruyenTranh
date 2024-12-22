@@ -27,7 +27,7 @@ if (isset($_REQUEST["action"])) {
 
 switch ($action) {
     case "null":
-        $mathang = $mh->laymathang();
+        $mathang = $mh->laymathangkhuyenmai();
         include("main.php");
         break;
     case "gioithieu":
@@ -38,7 +38,7 @@ switch ($action) {
             $madm = $_REQUEST["id"];
             $dmuc = $dm->laydanhmuctheoid($madm);
             $tendm =  $dmuc["tendanhmuc"];
-            $mathang = $mh->laymathangtheodanhmuc($madm);
+            $mathang = $mh->laymathangkhuyenmaitheodanhmuc($madm);
             include("group.php");
         } else {
             include("main.php");
@@ -50,10 +50,10 @@ switch ($action) {
             // tăng lượt xem lên 1
             $mh->tangluotxem($mahang);
             // lấy thông tin chi tiết mặt hàng
-            $mhct = $mh->laymathangtheoid($mahang);
+            $mhct = $mh->laymathangkhuyenmaitheoid($mahang);
             // lấy các mặt hàng cùng danh mục
             $madm = $mhct["danhmuc_id"];
-            $mathang = $mh->laymathangtheodanhmuc($madm);
+            $mathang = $mh->laymathangkhuyenmaitheodanhmuc($madm);
             include("detail.php");
         }
         break;
@@ -254,7 +254,7 @@ switch ($action) {
         $batdau = ($tranghh-1)*$soluong;          // mặt hàng bắt đầu sẽ lấy
         $mathang = $mh->laymathangphantrang($batdau, $soluong);
         */
-        $mathang = $mh->laymathang();
+        $mathang = $mh->laymathangkhuyenmai();
         include("main.php");
         break;
     case "timkiem":

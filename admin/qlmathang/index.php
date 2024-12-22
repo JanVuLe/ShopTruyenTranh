@@ -6,6 +6,7 @@ if (!isset($_SESSION["nguoidung"]))
 require("../../model/database.php");
 require("../../model/danhmuc.php");
 require("../../model/mathang.php");
+require("../../model/khuyenmai.php");
 
 // Xét xem có thao tác nào được chọn
 if (isset($_REQUEST["action"])) {
@@ -17,10 +18,11 @@ if (isset($_REQUEST["action"])) {
 $dm = new DANHMUC();
 $danhmuc = $dm->laydanhmuc();
 $mh = new MATHANG();
-
+$km = new KHUYENMAI();
+$khuyenmai = $km->laykhuyenmai();
 switch ($action) {
     case "xem":
-        $mathang = $mh->laymathang();
+        $mathang = $mh->laymathangkhuyenmai();
         include("main.php");
         break;
     case "them":
@@ -61,13 +63,13 @@ switch ($action) {
         $mathanghh->settenmathang($_POST["txttenmathang"]);
         $mathanghh->settacgia($_POST["txttacgia"]);
         $mathanghh->setmota($_POST["txtmota"]);
-        $mathanghh->setgiagoc($_POST["txtgianhap"]);
-        $mathanghh->setgiaban($_POST["txtgiaban"]);
+        $mathanghh->setgiagoc($_POST["txtgiagoc"]);
+        $mathanghh->setid_khuyenmai($_POST["optkhuyenmai"]);
         $mathanghh->setsoluongton($_POST["txtsoluong"]);
         $mathanghh->setdanhmuc_id($_POST["optdanhmuc"]);
         $mathanghh->sethinhanh($hinhanh);
         $mh->themmathang($mathanghh);
-        $mathang = $mh->laymathang();
+        $mathang = $mh->laymathangkhuyenmai();
         include("main.php");
         break;
     case "xoa":
@@ -106,7 +108,7 @@ switch ($action) {
         $mathanghh->settacgia($_POST["txttacgia"]);
         $mathanghh->setmota($_POST["txtmota"]);
         $mathanghh->setgiagoc($_POST["txtgiagoc"]);
-        $mathanghh->setgiaban($_POST["txtgiaban"]);
+        $mathanghh->setid_khuyenmai($_POST["optkhuyenmai"]);
         $mathanghh->setsoluongton($_POST["txtsoluongton"]);
         $mathanghh->setluotxem($_POST["txtluotxem"]);
         $mathanghh->setluotmua($_POST["txtluotmua"]);

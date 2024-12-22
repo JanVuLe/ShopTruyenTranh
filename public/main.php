@@ -28,7 +28,7 @@ foreach ($danhmuc as $d) {
                         <div class="card h-100 shadow">
                             <!-- Sale badge-->
                             <?php if ($m["giaban"] != $m["giagoc"]) { ?>
-                                <div class="badge bg-danger text-white position-absolute" style="top: 0.5rem; right: 0.5rem">Giảm giá</div>
+                                <div class="badge bg-danger text-white position-absolute" style="top: 0.5rem; right: 0.5rem">Giảm giá <?php echo $m["phantramgiam"] ?>%</div>
                             <?php } // end if 
                             ?>
                             <!-- Product image-->

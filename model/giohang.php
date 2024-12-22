@@ -57,7 +57,7 @@ function laygiohang()
     //Duyệt mảng SESSION giohang và lấy từng id sản phẩm cùng số lượng
     foreach ($_SESSION['giohang'] as $id => $soluong) {
         // Gọi hàm lấy thông tin của sản phẩm theo mã sản phẩm
-        $m = $mh_db->laymathangtheoid($id);
+        $m = $mh_db->laymathangkhuyenmaitheoid($id);
         $dongia = $m['giaban'];
         $solg = intval($soluong);
         // Tính tiền

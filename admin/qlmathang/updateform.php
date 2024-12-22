@@ -29,8 +29,15 @@
 			<input class="form-control" type="number" name="txtgiagoc" value="<?php echo $m["giagoc"]; ?>" required>
 		</div>
 		<div class="my-3">
-			<label>Giá bán</label>
-			<input class="form-control" type="number" name="txtgiaban" value="<?php echo $m["giaban"]; ?>" required>
+			<label>Khuyến mãi</label>
+			<select class="form-control" name="optkhuyenmai">
+				<option value="" <?php if (empty($m["id_khuyenmai"])) echo "selected"; ?>>Không</option>
+				<?php foreach ($khuyenmai as $k) { ?>
+					<option value="<?php echo $k["id"]; ?>" <?php if ($k["id"] == $m["id_khuyenmai"]) echo "selected"; ?>>
+						<?php echo $k["tenkhuyenmai"]; ?>
+					</option>
+				<?php } ?>
+			</select>
 		</div>
 		<div class="my-3">
 			<label>Số lượng tồn</label>
