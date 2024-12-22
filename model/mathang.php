@@ -225,10 +225,8 @@ class MATHANG
                     FROM mathang mh
                     LEFT JOIN 
                         khuyenmai km ON mh.id_khuyenmai = km.id
-                    WHERE 
-                        km.ngaybatdau <= CURDATE() AND km.ngayketthuc >= CURDATE()
-                        OR mh.id_khuyenmai IS NULL
-                        AND mh.id=:id";
+                    WHERE
+                        mh.id=:id";
             $cmd = $dbcon->prepare($sql);
             $cmd->bindValue(":id", $id);
             $cmd->execute();
