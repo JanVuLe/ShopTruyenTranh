@@ -406,7 +406,18 @@ class MATHANG
     {
         $dbcon = DATABASE::connect();
         try {
-            $sql = "SELECT * FROM mathang WHERE tenmathang LIKE :tenmathang";
+            $sql = "SELECT mh.*,
+                            COALESCE(
+                                mh.giagoc * (1 - km.phantramgiam / 100), 
+                                mh.giagoc
+                            ) AS giaban, km.tenkhuyenmai, km.ngaybatdau, km.ngayketthuc, km.phantramgiam
+                    FROM 
+                        mathang mh
+                    LEFT JOIN 
+                        khuyenmai km ON mh.id_khuyenmai = km.id
+                    WHERE 
+                        mh.tenmathang LIKE :tenmathang
+                        AND (km.ngaybatdau <= CURDATE() AND km.ngayketthuc >= CURDATE() OR mh.id_khuyenmai IS NULL)";
             $cmd = $dbcon->prepare($sql);
             $tenmathang = "%" . $tenmathang . "%";
             $cmd->bindValue(":tenmathang", $tenmathang);
